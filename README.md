@@ -36,12 +36,22 @@ Telegram бот для анализа рынка криптовалют
 
 ### Возможности бота
 ```/price [тикер монеты]``` — текущая цена монеты
+
 ```/change [тикер монеты]``` — измененение цены монеты за 24 часа  
+
 ```/list``` — сводка о отслеживаемых монетах и информация о доминации BTC и ETH
+
 ```/add [тикер монеты]``` — добавить монету в список отслеживания  
+
 ```/remove [тикер монеты]``` — удалить монету из списка отслеживания  
+
 ```/bubbles``` - визуализация рынка за неделю на сайте [cryptobubbles](https://cryptobubbles.net/)
+
 ```/mood``` - настроение рынка на базе индикатора [Bitcoin Rainbow Price Chart](https://www.blockchaincenter.net/bitcoin-rainbow-chart/)
+
 ```/explorer [адресс BTC кошелька]``` - информация о кошельке и QR код  
+
 ```/altindex``` - [Индекс сезона альткоинов](https://www.blockchaincenter.net/altcoin-season-index/)
+
 ```/fearAndGreed``` - [Индекс страха и жадности](https://alternative.me/crypto/fear-and-greed-index/)
+
