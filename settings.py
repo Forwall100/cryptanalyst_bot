@@ -1,2 +1,0 @@
-coinMarketCapToken = 'YOUR_COINMARKETCAP_TOKEN'
-botToken = 'YOUR_BOT_FATHER_TOKEN'
