@@ -27,6 +27,7 @@ Telegram бот для анализа рынка криптовалют
 4. Отредактируйте settings.py, добавьте свои токены
 * [Получить токен бота](https://t.me/BotFather)
 * [Получить токен CoinMarketCap](https://coinmarketcap.com/api/)
+* [Получить токен screenshotmachine](https://www.screenshotmachine.com/)
 
 5. Запустите бота
     ```bash
