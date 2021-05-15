@@ -215,13 +215,13 @@ async def send_change(message: types.Message):
 async def send_list(message: types.Message):
     cursor.execute("SELECT * FROM coins")
     coins = cursor.fetchall()
+    await message.answer('Доминирование: ' + dominance())
     for coin in coins:
         coin = coin[0]
         if change24(coin) < 0:
             status = '📉 упал на '
         else:
             status = '📈 вырос на '
-        await message.answer(dominance())
         await message.answer(coin + status + str(abs(round(change24(coin), 3))) + '% и теперь стоит ' + str(round(price(coin), 4)) + '$')
 
 @dp.message_handler(commands="add", content_types='text')
