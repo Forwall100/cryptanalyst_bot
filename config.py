@@ -1,0 +1,3 @@
+coinMarketCapToken = ''
+botToken = ''
+screenshotapiToken = ''
