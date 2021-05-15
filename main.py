@@ -1,12 +1,11 @@
 # -*- coding: utf8 -*-
 
 # Другие либы
-import math
-import re
 import sqlite3
+import shutil
 
 # Сетевые либы
-from requests import Request, Session
+from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import requests
@@ -16,13 +15,13 @@ import urllib.parse
 import hashlib
 
 # Либы для работы с телегой
-import logging
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
 #CONST
-from settings import coinMarketCapToken
-from settings import botToken
+from config import coinMarketCapToken
+from config import botToken
+from config import screenshotapiToken
 
 #Функции
 def change24(asset):
@@ -126,12 +125,11 @@ def generate_screenshot_api_url(customer_key, secret_phrase, options):
     return api_url
 
 def bubble():
-    customer_key = 'cb302f'
-    secret_phrase = '' # leave secret phrase empty, if not needed
+    customer_key = screenshotapiToken
+    secret_phrase = ''
     options = {
-    'url': 'https://cryptobubbles.net', # mandatory parameter
-    # all next parameters are optional, see our website screenshot API guide for more details
-    'dimension': '1366x768', # or "1366xfull" for full length screenshot
+    'url': 'https://cryptobubbles.net',
+    'dimension': '1366x768', 
     'device': 'desktop',
     'format': 'jpg',
     'cacheLimit' : '0',
@@ -139,8 +137,11 @@ def bubble():
     'zoom' : '100',
     'click': '#CloseCoinzillaHeader'
     }
-
-    return generate_screenshot_api_url(customer_key, secret_phrase, options)
+    url = generate_screenshot_api_url(customer_key, secret_phrase, options)
+    file = open('./bubbles.jpg', 'wb')
+    file.write(requests.get(url).content)
+    file.close()
+    return './bubbles.jpg'
 
 def fear_and_greed_index():
     def translate(x):
@@ -175,7 +176,7 @@ def alt_index():
     m = []
     for child in soup.find_all('div', attrs={"class":"bccblock"}):
         m.append(child.text.replace('\n', '').replace('%', ''))
-    return m[0].split()[3][0:2]
+    return m[1][22:24]
 
 # Инициализация БД
 connect = sqlite3.connect('coins.db')
@@ -254,7 +255,7 @@ async def mood_answer(message: types.Message):
 
 @dp.message_handler(commands="bubbles", content_types='text')
 async def bubbles_answer(message: types.Message):
-    await bot.send_photo(message.from_user.id, bubble())
+    await bot.send_photo(message.from_user.id, photo=open(bubble(), 'rb'))
 
 @dp.message_handler(commands="fearAndGreed", content_types='text')
 async def mood_answer(message: types.Message):
