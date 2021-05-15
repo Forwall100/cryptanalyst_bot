@@ -204,12 +204,12 @@ async def send_price(message: types.Message):
 @dp.message_handler(commands="change", content_types='text')
 async def send_change(message: types.Message):
     coin = message.text.replace('/change ', '')
-    if change24(coin[0]) < 0:
+    if change24(coin) < 0:
         status = '📉 упал на '
     else:
         status = '📈 вырос на '
 
-    await message.answer(coin[0] + status + str(abs(round(change24(coin[0]), 3))) + '%')
+    await message.answer(coin + status + str(abs(round(change24(coin), 3))) + '%')
 
 @dp.message_handler(commands="list")
 async def send_list(message: types.Message):
