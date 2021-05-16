@@ -1,6 +1,9 @@
 # cryptanalyst_bot
 Telegram бот для анализа рынка криптовалют
 
+### Демо бот
+https://t.me/demo_cryptanalyst_bot
+
 ### Скриншоты
 ![](https://i.imgur.com/i4DpVHb.png)
 
@@ -19,7 +22,7 @@ Telegram бот для анализа рынка криптовалют
    cd cryptanalyst_bot
    ```
 
-3. Установите зависимости проекта:
+3. Установите сторонние зависимости:
    ```bash
    pip install -r requirements.txt
    ```
