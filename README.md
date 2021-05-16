@@ -5,7 +5,7 @@ Telegram бот для анализа рынка криптовалют
 https://t.me/demo_cryptanalyst_bot
 
 ### Скриншоты
-![](https://i.imgur.com/SCyc0jX.gif)
+![](https://i.imgur.com/p9vf0o2.png)
 
 
 ### Зависимости
