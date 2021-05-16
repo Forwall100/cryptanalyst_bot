@@ -22,7 +22,7 @@ https://t.me/demo_cryptanalyst_bot
    cd cryptanalyst_bot
    ```
 
-3. Установите зависимости проекта:
+3. Установите сторонние зависимости:
    ```bash
    pip install -r requirements.txt
    ```
