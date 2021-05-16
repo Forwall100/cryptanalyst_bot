@@ -149,7 +149,7 @@ def fear_and_greed_index():
     for i in historical:
         if i.text != '':
             m.append(i.text.replace('\n', ' ').split())
-    return [('Сегодня ' + translate(m[0][1]) + ' ' + m[0][2]), ('Вчера ' + translate(m[1][1]) + ' ' +  m[1][2]), ('Прошлая неделя ' + translate(m[2][2]) + ' ' +  m[2][3])]
+    return [('Сегодня ' + translate(m[0][-2]) + ' ' + m[0][-1]), ('Вчера ' + translate(m[1][-2]) + ' ' +  m[1][-1]), ('Прошлая неделя ' + translate(m[-2][2]) + ' ' +  m[2][-1])]
 
 def btc_explorer(address):
     url = 'https://live.blockcypher.com/btc/address/' + address
@@ -169,3 +169,4 @@ def alt_index():
     for child in soup.find_all('div', attrs={"class":"bccblock"}):
         m.append(child.text.replace('\n', '').replace('%', ''))
     return m[1][22:24]
+    
