@@ -57,7 +57,9 @@ https://t.me/demo_cryptanalyst_bot
 
 ```/altindex``` - [Индекс сезона альткоинов](https://www.blockchaincenter.net/altcoin-season-index/)
 
-```/fearAndGreed``` - [Индекс страха и жадности](https://alternative.me/crypto/fear-and-greed-index/)
+```/fear``` - [Индекс страха и жадности](https://alternative.me/crypto/fear-and-greed-index/)
+
+```/gas``` - Цены на gas eth с сайта [etherscan](https://etherscan.io/gastracker)
 
 ### TODO
 - [ ] Добавить информацию о действииях grayscale
