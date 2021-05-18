@@ -140,5 +140,9 @@ async def explorer_answer(message: types.Message):
 async def alt_answer(message: types.Message):
     await message.answer('Индекс альтсезона сегодня - ' + alt_index() + '%')
 
+@dp.message_handler(commands="gas")
+async def alt_answer(message: types.Message):
+    await message.answer('🚀 Быстро - ' + gas()['FastGasPrice'] + ' gwei' + '\n👌Обычно - ' + gas()['ProposeGasPrice'] + ' gwei' + '\n🐢 Медленно - ' + gas()['SafeGasPrice'] + ' gwei')
+
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
