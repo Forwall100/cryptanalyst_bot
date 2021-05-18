@@ -31,6 +31,7 @@ https://t.me/demo_cryptanalyst_bot
 * [Получить токен бота](https://t.me/BotFather)
 * [Получить токен CoinMarketCap](https://coinmarketcap.com/api/)
 * [Получить токен screenshotmachine](https://www.screenshotmachine.com/)
+* [Получить токен EthScan](https://etherscan.io/)
 
 5. Запустите бота
     ```bash
@@ -63,5 +64,5 @@ https://t.me/demo_cryptanalyst_bot
 - [ ] Добавить разные списки отслеживания для каждого пользователя
 - [ ] Добавить отслеживание портфолио на coinmarketcap
 - [ ] Добавить ивенты с coindar
-- [ ] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
+- [X] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
 - [X] Добавить подсказки команд
