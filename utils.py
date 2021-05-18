@@ -14,6 +14,7 @@ import hashlib
 #CONST
 from config import coinMarketCapToken
 from config import screenshotapiToken
+from config import ethscan
 
 #Функции
 def change24(asset):
@@ -169,4 +170,13 @@ def alt_index():
     for child in soup.find_all('div', attrs={"class":"bccblock"}):
         m.append(child.text.replace('\n', '').replace('%', ''))
     return m[1][22:24]
-    
+
+def gas():
+    url = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey='+ethscan
+    session = Session()
+    try:
+        response = session.get(url)
+        data = json.loads(response.text)
+        return data['result']
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        return e
