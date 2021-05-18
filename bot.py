@@ -27,7 +27,8 @@ async def set_bot_commands(dp):
         types.BotCommand(command="explorer", description="[адресс BTC кошелька] - информация о кошельке и QR код"),
         types.BotCommand(command="altindex", description="индекс сезона альткоинов"),
         types.BotCommand(command="fear", description="индекс страха и жадности"),
-        types.BotCommand(command="help", description="справка по командам")
+        types.BotCommand(command="help", description="справка по командам"),
+        type.BotCommand(command="gas", description="цены на gas eth")
     ]
     await dp.bot.set_my_commands(commands)
 
