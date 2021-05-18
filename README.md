@@ -4,14 +4,14 @@ Telegram бот для анализа рынка криптовалют
 ### Демо бот
 https://t.me/demo_cryptanalyst_bot
 
-### Скриншоты
-![](https://i.imgur.com/i4DpVHb.png)
+### Скриншот
+![](https://i.imgur.com/5JBtHcx.png)
 
 
 ### Зависимости
 * [Python 3.6 (или выше)](https://www.python.org/)
 
-### Шаги
+### Установка бота
 1. Скачайте файлы проекта:
    ```bash
    git clone https://github.com/Forwall100/cryptanalyst_bot.git
@@ -63,4 +63,5 @@ https://t.me/demo_cryptanalyst_bot
 - [ ] Добавить разные списки отслеживания для каждого пользователя
 - [ ] Добавить отслеживание портфолио на coinmarketcap
 - [ ] Добавить ивенты с coindar
+- [ ] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
 - [X] Добавить подсказки команд
