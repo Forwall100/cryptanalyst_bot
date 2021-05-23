@@ -43,16 +43,15 @@ cursor.execute("SELECT * FROM coins")
 coins = cursor.fetchall()
 
 # Инициализация бота
-
 bot = Bot(token = botToken)
 dp = Dispatcher(bot)
 
 # Логика бота
-
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message, state: FSMContext):
     await set_bot_commands(dp)
     await message.answer("Для получения справки по функциям бота использую /help \nСтраница проекта на GitHub - github.com/Forwall100/cryptanalyst_bot")
+
 
 @dp.message_handler(commands="help")
 async def send_help(message: types.Message):
@@ -141,9 +140,11 @@ async def explorer_answer(message: types.Message):
 async def alt_answer(message: types.Message):
     await message.answer('Индекс альтсезона сегодня - ' + alt_index() + '%')
 
+
 @dp.message_handler(commands="gas")
 async def alt_answer(message: types.Message):
     await message.answer('🚀 Быстро - ' + gas()['FastGasPrice'] + ' gwei' + '\n👌Обычно - ' + gas()['ProposeGasPrice'] + ' gwei' + '\n🐢 Медленно - ' + gas()['SafeGasPrice'] + ' gwei')
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
