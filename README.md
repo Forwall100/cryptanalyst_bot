@@ -31,6 +31,7 @@ https://t.me/demo_cryptanalyst_bot
 * [Получить токен бота](https://t.me/BotFather)
 * [Получить токен CoinMarketCap](https://coinmarketcap.com/api/)
 * [Получить токен screenshotmachine](https://www.screenshotmachine.com/)
+* [Получить токен EthScan](https://etherscan.io/)
 
 5. Запустите бота
     ```bash
@@ -56,12 +57,13 @@ https://t.me/demo_cryptanalyst_bot
 
 ```/altindex``` - [Индекс сезона альткоинов](https://www.blockchaincenter.net/altcoin-season-index/)
 
-```/fearAndGreed``` - [Индекс страха и жадности](https://alternative.me/crypto/fear-and-greed-index/)
+```/fear``` - [Индекс страха и жадности](https://alternative.me/crypto/fear-and-greed-index/)
+
+```/gas``` - Цены на gas eth с сайта [etherscan](https://etherscan.io/gastracker)
 
 ### TODO
 - [ ] Добавить информацию о действииях grayscale
 - [ ] Добавить разные списки отслеживания для каждого пользователя
-- [ ] Добавить отслеживание портфолио на coinmarketcap
 - [ ] Добавить ивенты с coindar
-- [ ] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
+- [X] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
 - [X] Добавить подсказки команд

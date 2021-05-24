@@ -1,3 +1,4 @@
 coinMarketCapToken = ''
 botToken = ''
 screenshotapiToken = ''
+ethscan = ''
