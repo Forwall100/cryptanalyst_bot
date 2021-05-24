@@ -94,7 +94,6 @@ async def send_list(message: types.Message):
 async def add_coin(message: types.Message):
     cursor.execute("SELECT * FROM u{}".format(message.from_user.id))
     coins = cursor.fetchall()
-
     if (message.text.replace('/add ', ''),) not in coins:
         cursor.execute("INSERT INTO u{} VALUES(?);".format(message.from_user.id), [message.text.replace('/add ', '')])
         connect.commit()
@@ -107,7 +106,6 @@ async def add_coin(message: types.Message):
 async def remove_coin(message: types.Message):
     cursor.execute("SELECT * FROM u{}".format(message.from_user.id))
     coins = cursor.fetchall()
-
     if (message.text.replace('/remove ', ''),) in coins:
         cursor.execute("DELETE FROM u{} WHERE ticker = ?".format(message.from_user.id), [message.text.replace('/remove ', '')])
         connect.commit()
