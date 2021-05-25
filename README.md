@@ -69,7 +69,8 @@ https://t.me/demo_cryptanalyst_bot
 - [X] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
 - [X] Добавить подсказки команд
 
-## Поддержать автора:
+### Поддержать автора:
+#### На нормальный сервер для демо бота
 
 * Bitcoin: bc1q0k0c95zctw3m0vqqye3qds23esuscchzpfl5re
 
