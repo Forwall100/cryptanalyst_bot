@@ -28,7 +28,9 @@ async def set_bot_commands(dp):
         types.BotCommand(command="altindex", description="индекс сезона альткоинов"),
         types.BotCommand(command="fear", description="индекс страха и жадности"),
         types.BotCommand(command="help", description="справка по командам"),
-        types.BotCommand(command="gas", description="цены на gas eth")
+        types.BotCommand(command="gas", description="цены на gas eth"),
+        types.BotCommand(command="signal", description="[тикер монеты] [h/d/w/m] - результаты анализа рынка"),
+        types.BotCommand(command="advsignal", description="[тикер монеты] [h/d/w/m] - продвинутые результаты анализа рынка"),
     ]
     await dp.bot.set_my_commands(commands)
 
@@ -81,14 +83,17 @@ async def send_list(message: types.Message):
     cursor.execute("SELECT * FROM u{}".format(message.from_user.id))
     coins = cursor.fetchall()
     await message.answer('Доминирование: ' + dominance())
+    m = []
+    await message.answer('Готовим актуальные результаты...')
     for coin in coins:
         coin = coin[0]
         if change24(coin) < 0:
             status = '📉 упал на '
         else:
             status = '📈 вырос на '
-        await message.answer(coin + status + str(abs(round(change24(coin), 3))) + '% и теперь стоит ' + str(round(price(coin), 4)) + '$')
-
+        m.append(coin + status + str(abs(round(change24(coin), 3))) + '% и теперь стоит ' + str(round(price(coin), 4)) + '$' + '\n' + sum_signals(coin)[0])
+    for i in m:
+        await message.answer(i)
 
 @dp.message_handler(commands="add", content_types='text')
 async def add_coin(message: types.Message):
@@ -147,6 +152,19 @@ async def alt_answer(message: types.Message):
     slow = gas()['SafeGasPrice']
     await message.answer('🚀 Быстро - ' + fast + ' gwei' + '\n👌Обычно - ' + propose + ' gwei ' + '\n🐢 Медленно - ' + slow + ' gwei ')
 
+
+@dp.message_handler(commands="signal", content_types='text')
+async def signal_answer(message: types.Message):
+    ticker = message.text.replace('/signal ', '').split()[0]
+    time = message.text.replace('/signal ', '').split()[1]
+    await message.answer(sum_signals(ticker, time)[0] + ' по ' + ticker)
+    await message.answer('Статистика по сигналам' + sum_signals(ticker, time)[1])
+
+@dp.message_handler(commands="advsignal", content_types='text')
+async def advsignal_answer(message: types.Message):
+    ticker = message.text.replace('/advsignal ', '').split()[0]
+    time = message.text.replace('/advsignal ', '').split()[1]
+    await message.answer('Анализ по ' + ticker + '\n' + sum_signals_adv(ticker, time))
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
