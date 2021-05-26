@@ -62,8 +62,24 @@ https://t.me/demo_cryptanalyst_bot
 ```/gas``` - Цены на gas eth с сайта [etherscan](https://etherscan.io/gastracker)
 
 ### TODO
+- [ ] Написать рекомендательную систему на основе индикаторов с сайта [taapi.io](https://taapi.io/)
 - [ ] Добавить информацию о действииях grayscale
-- [ ] Добавить разные списки отслеживания для каждого пользователя
+- [X] Добавить разные списки отслеживания для каждого пользователя
 - [ ] Добавить ивенты с coindar
 - [X] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
 - [X] Добавить подсказки команд
+
+### Поддержать автора:
+#### На нормальный сервер для демо бота
+
+* Bitcoin: bc1q0k0c95zctw3m0vqqye3qds23esuscchzpfl5re
+
+* Ethereum: 0x3c396471d68AbF7F2f9F92c745F8eE9F8785C212
+
+* DASH: XwXdpu1FhHmEteVE4CLaeeJbg3ZWpcNvCK
+
+* Zcash: t1Ppg6BRYQFCoLy8ZrNctMeQ1Qv9pRE3j4b
+
+* Monero: 477QnDRCae4MUsCwU6JYZqVCKoxTsWFUJDeDdTng61Md5ryzebSHZjM2RaD1996kvzWE59Whnp1LSbtGgevjDTWqLzCdzNC
+
+* Litecoin: LcKvQbSeLzAm2Sc2yqpkiFs1su4nABR8LZ
