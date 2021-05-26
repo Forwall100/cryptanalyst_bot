@@ -32,6 +32,7 @@ https://t.me/demo_cryptanalyst_bot
 * [Получить токен CoinMarketCap](https://coinmarketcap.com/api/)
 * [Получить токен screenshotmachine](https://www.screenshotmachine.com/)
 * [Получить токен EthScan](https://etherscan.io/)
+* [Получить токен Taapi](https://taapi.io/)
 
 5. Запустите бота
     ```bash
@@ -61,8 +62,12 @@ https://t.me/demo_cryptanalyst_bot
 
 ```/gas``` - Цены на gas eth с сайта [etherscan](https://etherscan.io/gastracker)
 
+```/signal``` - Анализ рынка на основе торговых индикаторов с сайта [Taapi](https://taapi.io/)
+
+```/advsignal``` - Полные результаты анализа рынка с указанием индикаторов
+
 ### TODO
-- [ ] Написать рекомендательную систему на основе индикаторов с сайта [taapi.io](https://taapi.io/)
+- [X] Написать рекомендательную систему на основе индикаторов с сайта [taapi.io](https://taapi.io/)
 - [ ] Добавить информацию о действииях grayscale
 - [X] Добавить разные списки отслеживания для каждого пользователя
 - [ ] Добавить ивенты с coindar
