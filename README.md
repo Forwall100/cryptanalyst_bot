@@ -62,7 +62,7 @@ https://t.me/demo_cryptanalyst_bot
 
 ```/gas``` - Цены на gas eth с сайта [etherscan](https://etherscan.io/gastracker)
 
-```/signal``` - Анализ рынка на основе торговых индикаторов с сайта [Taapi](https://taapi.io/)
+```/signal [тикекр монеты] [промежуток времени h/d/w/m час/день/неделя/месяц соответственно]``` - Анализ рынка на основе торговых индикаторов с сайта [Taapi](https://taapi.io/)
 
 ```/advsignal``` - Полные результаты анализа рынка с указанием индикаторов
 
