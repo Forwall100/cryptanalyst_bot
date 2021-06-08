@@ -1,4 +1,3 @@
-coinMarketCapToken = ''
 botToken = ''
 screenshotapiToken = ''
 ethscan = ''
