@@ -29,7 +29,6 @@ https://t.me/demo_cryptanalyst_bot
 
 4. Отредактируйте config.py, добавьте свои токены
 * [Получить токен бота](https://t.me/BotFather)
-* [Получить токен CoinMarketCap](https://coinmarketcap.com/api/)
 * [Получить токен screenshotmachine](https://www.screenshotmachine.com/)
 * [Получить токен EthScan](https://etherscan.io/)
 * [Получить токен Taapi](https://taapi.io/)
@@ -67,7 +66,7 @@ https://t.me/demo_cryptanalyst_bot
 ```/advsignal``` - Полные результаты анализа рынка с указанием индикаторов
 
 ### TODO
-- [ ] Переписать функции, использующие API coinmarketcap на API Coingecko, т.к. он не требует ключа 
+- [X] Переписать функции, использующие API coinmarketcap на API Coingecko, т.к. он не требует ключа 
 - [X] Написать рекомендательную систему на основе индикаторов с сайта [taapi.io](https://taapi.io/)
 - [ ] Добавить информацию о действииях grayscale
 - [X] Добавить разные списки отслеживания для каждого пользователя
