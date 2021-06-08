@@ -1,5 +1,8 @@
 # -*- coding: utf8 -*-
 
+#TODO
+# - [] Coindar
+
 # Импорт функций
 from utils import *
 
@@ -91,9 +94,10 @@ async def send_list(message: types.Message):
             status = '📉 упал на '
         else:
             status = '📈 вырос на '
-        m.append(coin + status + str(abs(round(change24(coin), 3))) + '% и теперь стоит ' + str(round(price(coin), 4)) + '$' + '\n' + sum_signals(coin)[0])
+        m.append(coin + status + str(abs(change24(coin))) + '% и теперь стоит ' + str(price(coin)) + '$' + '\n' + sum_signals(coin)[0])
     for i in m:
         await message.answer(i)
+
 
 @dp.message_handler(commands="add", content_types='text')
 async def add_coin(message: types.Message):
@@ -160,11 +164,13 @@ async def signal_answer(message: types.Message):
     await message.answer(sum_signals(ticker, time)[0] + ' по ' + ticker)
     await message.answer('Статистика по сигналам' + sum_signals(ticker, time)[1])
 
+
 @dp.message_handler(commands="advsignal", content_types='text')
 async def advsignal_answer(message: types.Message):
     ticker = message.text.replace('/advsignal ', '').split()[0]
     time = message.text.replace('/advsignal ', '').split()[1]
     await message.answer('Анализ по ' + ticker + '\n' + sum_signals_adv(ticker, time))
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
