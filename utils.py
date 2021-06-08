@@ -17,71 +17,53 @@ from requests.sessions import session
 from config import *
 
 #Функции
-def change24(asset):
-    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
-    parameters = {
-        'symbol': asset
-    }
-    headers = {
-        'Accepts': 'application/json',
-        'X-CMC_PRO_API_KEY': coinMarketCapToken,
-    }
+def get_id(ticker):
+    with open('get_id.json', 'r') as file:
+        data = json.load(file)
+        for coin in data:
+            if coin['symbol'] == ticker or coin['symbol'] == ticker.lower():
+                return coin['id']
 
-    session = Session()
-    session.headers.update(headers)
 
+def change24(ticker):
+    id = get_id(ticker)
+    url = 'https://api.coingecko.com/api/v3/simple/price?ids={}&vs_currencies=usd&include_24hr_change=true'.format(id)
     try:
-        response = session.get(url, params=parameters)
-        data = json.loads(response.text)
-        return data['data'][asset]['quote']['USD']['percent_change_24h']
+        r = requests.get(url)
+        data = r.json()
+        return data[id]['usd_24h_change']
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
 
-def price(asset):
-    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
-    parameters = {
-        'symbol': asset
-    }
-    headers = {
-        'Accepts': 'application/json',
-        'X-CMC_PRO_API_KEY': coinMarketCapToken,
-    }
 
-    session = Session()
-    session.headers.update(headers)
-
+def price(ticker):
+    id = get_id(ticker)
+    url = 'https://api.coingecko.com/api/v3/simple/price?ids={}&vs_currencies=usd'.format(id)
     try:
-        response = session.get(url, params=parameters)
-        data = json.loads(response.text)
-        return data['data'][asset]['quote']['USD']['price']
+        r = requests.get(url)
+        data = r.json()
+        return data[id]['usd']
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
 
-def name(asset):
-    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
-    parameters = {
-        'symbol': asset
-    }
-    headers = {
-        'Accepts': 'application/json',
-        'X-CMC_PRO_API_KEY': coinMarketCapToken,
-    }
 
-    session = Session()
-    session.headers.update(headers)
-
+def name(ticker):
+    id = get_id(ticker)
+    url = 'https://api.coingecko.com/api/v3/coins/{}'.format(id)
     try:
-        response = session.get(url, params=parameters)
-        data = json.loads(response.text)
-        return data['data'][asset]['name']
+        r = requests.get(url)
+        data = r.json()
+        return data['name']
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
+
 
 def dominance():
     url = 'https://coinmarketcap.com/ru/'
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
     return(soup.find_all('a', attrs={'href':'/ru/charts/#dominance-percentage'})[0].text)
+
 
 def mood():
     url = 'https://www.blockchaincenter.net/bitcoin-rainbow-chart/'
@@ -110,12 +92,14 @@ def mood():
                 elif child.text == 'Basically a Fire Sale':
                     return 'Огненная распродажа'
 
+
 def generate_screenshot_api_url(customer_key, secret_phrase, options):
     api_url = 'https://api.screenshotmachine.com/?key=' + customer_key
     if secret_phrase:
         api_url = api_url + '&hash=' + hashlib.md5((options.get('url') + secret_phrase).encode('utf-8')).hexdigest()
     api_url = api_url + '&' + urllib.parse.urlencode(options)
     return api_url
+
 
 def bubble():
     customer_key = screenshotapiToken
@@ -135,6 +119,7 @@ def bubble():
     file.write(requests.get(url).content)
     file.close()
     return './bubbles.jpg'
+
 
 def fear_and_greed_index():
     def translate(x):
@@ -157,6 +142,7 @@ def fear_and_greed_index():
             pass
     return [('Сегодня ' + translate(m[0][-2]) + ' ' + m[0][-1]), ('Вчера ' + translate(m[1][-2]) + ' ' +  m[1][-1]), ('Прошлая неделя ' + translate(m[-2][2]) + ' ' +  m[2][-1])]
 
+
 def btc_explorer(address):
     url = 'https://live.blockcypher.com/btc/address/' + address
     response = requests.get(url)
@@ -167,6 +153,7 @@ def btc_explorer(address):
             m.append(i.text.replace('\n', ' '))
     return [m[-1], m[-2], m[-3], 'https:' + soup.find_all('img')[0]['src']]
 
+
 def alt_index():
     url = 'https://www.blockchaincenter.net/altcoin-season-index/'
     response = requests.get(url)
@@ -175,6 +162,7 @@ def alt_index():
     for child in soup.find_all('div', attrs={"class":"bccblock"}):
         m.append(child.text.replace('\n', '').replace('%', ''))
     return m[1][22:24]
+
 
 def gas():
     url = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey='+ethscan
@@ -185,6 +173,7 @@ def gas():
         return data['result']
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
+
 
 def trand(ticker, time='d'):
     # Определение периода торговли
@@ -225,6 +214,7 @@ def rsi(ticker, time='d'):
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
 
+
 def bbands(ticker, time='d'):
     url = 'https://api.taapi.io/bbands2?secret={}&exchange=binance&symbol={}/USDT&interval=1{}'.format(taapiTocken, ticker, time)
     session = Session()
@@ -239,6 +229,7 @@ def bbands(ticker, time='d'):
             return 'neutral'
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
+
 
 def macd(ticker, time='d'):
     url = 'https://api.taapi.io/macd?secret={}&exchange=binance&symbol={}/USDT&interval=1{}'.format(taapiTocken, ticker, time)
@@ -255,6 +246,7 @@ def macd(ticker, time='d'):
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
 
+
 def stochrs(ticker, time='d'):
     url = 'https://api.taapi.io/stochrsi?secret={}&exchange=binance&symbol={}/USDT&interval=1{}'.format(taapiTocken, ticker, time)
     session = Session()
@@ -269,6 +261,7 @@ def stochrs(ticker, time='d'):
             return 'neutral'
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         return e
+
 
 def ishimoku(ticker, time='d'):
     url = 'https://api.taapi.io/ichimoku?secret={}&exchange=binance&symbol={}/USDT&interval=1{}&backtracks=10'.format(taapiTocken, ticker, time)
@@ -292,14 +285,33 @@ def ishimoku(ticker, time='d'):
     except:
         pass
 
+
 def sum_signals(ticker, time='d'):
     m = []
-    m.append(trand(ticker, time))
-    m.append(rsi(ticker))
-    m.append(bbands(ticker))
-    m.append(macd(ticker))
-    m.append(stochrs(ticker))
-    m.append(ishimoku(ticker))
+    try:
+        m.append(trand(ticker, time))
+    except:
+        pass
+    try:
+        m.append(rsi(ticker))
+    except:
+        pass
+    try:
+        m.append(bbands(ticker))
+    except:
+        pass
+    try:
+        m.append(macd(ticker))
+    except:
+        pass
+    try:
+        m.append(stochrs(ticker))
+    except:
+        pass
+    try:
+        m.append(ishimoku(ticker))
+    except:
+        pass
 
     if ticker != 'BTC' and int(alt_index()) >= 75:
         m.append('bull')
@@ -333,14 +345,33 @@ def sum_signals(ticker, time='d'):
     res.append('\n🐻 Медвежьи: ' + str(bear) + '\n🐂 Бычьи: ' + str(bull) + '\n🙈 Нейтральные: ' + str(neutral))
     return res
 
+
 def sum_signals_adv(ticker, time='d'):
     m = []
-    m.append((trand(ticker, time), 'EMA'))
-    m.append((rsi(ticker), 'RSI'))
-    m.append((bbands(ticker), 'Bollinger Bands'))
-    m.append((macd(ticker), 'MACD'))
-    m.append((stochrs(ticker), 'Stochastic Relative Strength'))
-    m.append((ishimoku(ticker), 'Ichimoku Cloud'))
+    try:
+        m.append((trand(ticker, time), 'EMA'))
+    except:
+        pass
+    try:
+        m.append((rsi(ticker), 'RSI'))
+    except:
+        pass
+    try:
+        m.append((bbands(ticker), 'Bollinger Bands'))
+    except:
+        pass
+    try:
+        m.append((macd(ticker), 'MACD'))
+    except:
+        pass
+    try:
+        m.append((stochrs(ticker), 'Stochastic Relative Strength'))
+    except:
+        pass
+    try:
+        m.append((ishimoku(ticker), 'Ichimoku Cloud'))
+    except:
+        pass
 
     if ticker != 'BTC' and int(alt_index()) >= 75:
         m.append(('bull', 'Altcoin Seson'))
