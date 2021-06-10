@@ -34,6 +34,7 @@ async def set_bot_commands(dp):
         types.BotCommand(command="gas", description="цены на gas eth"),
         types.BotCommand(command="signal", description="[тикер монеты] [h/d/w/m] - результаты анализа рынка"),
         types.BotCommand(command="advsignal", description="[тикер монеты] [h/d/w/m] - продвинутые результаты анализа рынка"),
+        types.BotCommand(command="profile", description="Список отслеживаемых монет и другая информация о профиле"),
     ]
     await dp.bot.set_my_commands(commands)
 
@@ -87,16 +88,16 @@ async def send_list(message: types.Message):
     coins = cursor.fetchall()
     await message.answer('Доминирование: ' + dominance())
     m = []
-    await message.answer('Готовим актуальные результаты...')
+    await message.answer('Готовим актуальные данные...')
     for coin in coins:
         coin = coin[0]
         if change24(coin) < 0:
             status = '📉 упал на '
         else:
             status = '📈 вырос на '
-        m.append(coin + status + str(abs(change24(coin))) + '% и теперь стоит ' + str(price(coin)) + '$' + '\n' + sum_signals(coin)[0])
+        m.append('**{}**'.format(coin) + status + '`{}`'.format(str(round(abs(change24(coin)), 3)) + '%') + ' и теперь стоит ' + '`{}`'.format(str(price(coin)) + '$') + '\n' + sum_signals(coin)[0])
     for i in m:
-        await message.answer(i)
+        await message.answer(i, parse_mode='MarkdownV2')
 
 
 @dp.message_handler(commands="add", content_types='text')
@@ -121,6 +122,19 @@ async def remove_coin(message: types.Message):
         await message.answer('Удалил тикер из списка')
     else:
         await message.answer('Этого тикера нет в списке')
+
+
+@dp.message_handler(commands="profile")
+async def alt_answer(message: types.Message):
+    cursor.execute("SELECT * FROM u{}".format(message.from_user.id))
+    coins = cursor.fetchall()
+    watching_coins = []
+    for coin in coins:
+        if coins.index(coin) + 1 == len(coins):
+            watching_coins.append('└ `' + coin[0] + '`')
+        else:
+            watching_coins.append('├ `' + coin[0] + '`')
+    await message.answer('🆔 Ваш ID: {}\n\n 🔎 Отслеживаемые монеты\n{}'.format('`{}`'.format(message.from_user.id), '\n'.join(watching_coins)), parse_mode='MarkdownV2')
 
 
 @dp.message_handler(commands="mood", content_types='text')
