@@ -88,7 +88,7 @@ async def send_list(message: types.Message):
     coins = cursor.fetchall()
     await message.answer('Доминирование: ' + dominance())
     m = []
-    await message.answer('Готовим актуальные данные...')
+    await message.answer('⏳ Готовим актуальные данные...')
     for coin in coins:
         coin = coin[0]
         if change24(coin) < 0:
@@ -154,8 +154,11 @@ async def mood_answer(message: types.Message):
 
 @dp.message_handler(commands="explorer", content_types='text')
 async def explorer_answer(message: types.Message):
-    await message.answer((btc_explorer(message.text.replace('/explorer ', ''))[0] + btc_explorer(message.text.replace('/explorer ', ''))[1] + btc_explorer(message.text.replace('/explorer ', ''))[2]).replace('Balance', 'Баланс').replace('Sent', 'Отправлено').replace('Received', 'Получено'))
-    await bot.send_photo(message.from_user.id, btc_explorer(message.text.replace('/explorer ', ''))[3])
+    address = message.text.replace('/explorer ', '')
+    await message.answer('⏳ Готовим актуальные данные')
+    qr_code_url = btc_explorer(address)['qr_code_url']
+    await message.answer('💎 Bitcoin адрес:\n' + '`{}`'.format(address) + '\n\n' + 'Транзакций: ' + '`{}`'.format(str(btc_explorer(address)['tx_count'])) + '\n' + 'Всего получено: ' + '`{}`'.format(str(btc_explorer(address)['received'])) + '\n' + 'Всего отправлено: ' + '`{}`'.format(str(btc_explorer(address)['sent'])) + '\n' + 'Итоговый баланс: ' + '`{}`'.format(str(btc_explorer(address)['balance'])), parse_mode='MarkdownV2')
+    await bot.send_photo(message.from_user.id, qr_code_url)
 
 
 @dp.message_handler(commands="altindex", content_types='text')
