@@ -155,9 +155,16 @@ async def mood_answer(message: types.Message):
 @dp.message_handler(commands="explorer", content_types='text')
 async def explorer_answer(message: types.Message):
     address = message.text.replace('/explorer ', '')
+    buttons = [
+        types.InlineKeyboardButton(text="Blockchain", url="https://www.blockchain.com/ru/btc/address/"+address),
+        types.InlineKeyboardButton(text="Intelx", url="https://intelx.io/?s="+address),
+        types.InlineKeyboardButton(text="Whoiswho", url="https://bitcoinwhoswho.com/address/"+address)
+    ]
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(*buttons)
     await message.answer('⏳ Готовим актуальные данные')
     qr_code_url = btc_explorer(address)['qr_code_url']
-    await message.answer('💎 Bitcoin адрес:\n' + '`{}`'.format(address) + '\n\n' + 'Транзакций: ' + '`{}`'.format(str(btc_explorer(address)['tx_count'])) + '\n' + 'Всего получено: ' + '`{}`'.format(str(btc_explorer(address)['received'])) + '\n' + 'Всего отправлено: ' + '`{}`'.format(str(btc_explorer(address)['sent'])) + '\n' + 'Итоговый баланс: ' + '`{}`'.format(str(btc_explorer(address)['balance'])), parse_mode='MarkdownV2')
+    await message.answer('💎 Bitcoin адрес:\n' + '`{}`'.format(address) + '\n\n' + 'Транзакций: ' + '`{}`'.format(str(btc_explorer(address)['tx_count'])) + '\n' + 'Всего получено: ' + '`{}`'.format(str(btc_explorer(address)['received'])) + '\n' + 'Всего отправлено: ' + '`{}`'.format(str(btc_explorer(address)['sent'])) + '\n' + 'Итоговый баланс: ' + '`{}`'.format(str(btc_explorer(address)['balance'])), parse_mode='MarkdownV2', reply_markup=keyboard)
     await bot.send_photo(message.from_user.id, qr_code_url)
 
 
