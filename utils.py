@@ -144,14 +144,18 @@ def fear_and_greed_index():
 
 
 def btc_explorer(address):
-    url = 'https://live.blockcypher.com/btc/address/' + address
+    url = 'https://bitcoinwhoswho.com/address/' + address
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
-    m = []
-    for i in soup.find_all('li'):
-        if 'RECEIVED' or 'SENT' or 'BALANCE' in i.text:
-            m.append(i.text.replace('\n', ' '))
-    return [m[-1], m[-2], m[-3], 'https:' + soup.find_all('img')[0]['src']]
+    qr_code_url = soup.find_all('img', attrs={'alt':'QR Code'})[0]['src']
+
+    url = 'https://chain.api.btc.com/v3/address/' + address
+    data = requests.get(url).json()['data']
+    received = data['received']/100000000
+    sent = data['sent']/100000000
+    balance = data['balance']
+    tx_count = data['tx_count']
+    return {'qr_code_url':qr_code_url, 'received':str(received) + ' = ~' + str(round(price('BTC') * received, 2)) + '$', 'sent':str(sent) + ' = ~' + str(round(price('BTC') * received, 2)) + '$', 'balance':balance, 'tx_count':tx_count}
 
 
 def alt_index():
