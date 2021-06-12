@@ -11,7 +11,7 @@ import sqlite3
 
 # Либы для работы с телегой
 from aiogram import Bot, Dispatcher, executor, types
-from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, user
 from aiogram.dispatcher import FSMContext
 
 #CONST
@@ -140,6 +140,25 @@ async def alt_answer(message: types.Message):
 @dp.message_handler(commands="mood", content_types='text')
 async def mood_answer(message: types.Message):
     await message.answer(mood())
+
+@dp.message_handler(commands='admin', content_types='text')
+async def server_answer(message: types.Message):
+    if message.from_user.id == admin_id:
+        keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        close = types.KeyboardButton(text="❌ Закрыть")
+        statistic = types.KeyboardButton(text="📊 Статистика")
+        keyboard.add(close, statistic)
+        await message.answer('Вы вошли в админ панель', reply_markup=keyboard)
+        @dp.message_handler(content_types='text')
+        async def choise_answer(message: types.Message):
+            if message.text == "📊 Статистика":
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+                await message.answer('📊 Пользователей в боте - ' + str(len(cursor.fetchall())))
+            if message.text == '❌ Закрыть':
+                markup = types.ReplyKeyboardRemove()
+                await message.answer('Вы вышли из админ панели', reply_markup=markup)
+    else:
+        await message.answer('Вы не администратор')
 
 
 @dp.message_handler(commands="bubbles", content_types='text')
