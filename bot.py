@@ -8,6 +8,7 @@ from utils import *
 
 # Другие либы
 import sqlite3
+import os
 
 # Либы для работы с телегой
 from aiogram import Bot, Dispatcher, executor, types
@@ -151,6 +152,8 @@ async def server_answer(message: types.Message):
         await message.answer('Вы вошли в админ панель', reply_markup=keyboard)
         @dp.message_handler(content_types='text')
         async def choise_answer(message: types.Message):
+            if message.text == "⏲ Аптайм":
+                await message.answer(os.system('uptime'))
             if message.text == "📊 Статистика":
                 cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
                 await message.answer('📊 Пользователей в боте - ' + str(len(cursor.fetchall())))
