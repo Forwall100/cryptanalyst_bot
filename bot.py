@@ -183,7 +183,7 @@ async def explorer_answer(message: types.Message):
     keyboard.add(*buttons)
     await message.answer('⏳ Готовим актуальные данные')
     qr_code_url = btc_explorer(address)['qr_code_url']
-    await message.answer('💎 Bitcoin адрес:\n' + '`{}`'.format(address) + '\n\n' + 'Транзакций: ' + '`{}`'.format(str(btc_explorer(address)['tx_count'])) + '\n' + 'Всего получено: ' + '`{}`'.format(str(btc_explorer(address)['received'])) + '\n' + 'Всего отправлено: ' + '`{}`'.format(str(btc_explorer(address)['sent'])) + '\n' + 'Итоговый баланс: ' + '`{}`'.format(str(btc_explorer(address)['balance'])), parse_mode='MarkdownV2', reply_markup=keyboard)
+    await message.answer('💎 Bitcoin адрес:\n' + '`{}`'.format(address) + '\n\n' + 'Транзакций: ' + '`{}`'.format(str(btc_explorer(address)['tx_count'])) + '\n' + 'Всего получено: ' + '`{} BTC`'.format(str(btc_explorer(address)['received'])) + '\n' + 'Всего отправлено: ' + '`{} BTC`'.format(str(btc_explorer(address)['sent'])) + '\n' + 'Итоговый баланс: ' + '`{}`'.format(str(btc_explorer(address)['balance'])), parse_mode='MarkdownV2', reply_markup=keyboard)
     await bot.send_photo(message.from_user.id, qr_code_url)
 
 
