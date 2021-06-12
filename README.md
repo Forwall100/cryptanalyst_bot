@@ -29,6 +29,7 @@ https://t.me/demo_cryptanalyst_bot
 
 4. Отредактируйте config.py, добавьте свои токены
 * [Получить токен бота](https://t.me/BotFather)
+* [Получить id пользователя](https://t.me/getmyid_bot)
 * [Получить токен screenshotmachine](https://www.screenshotmachine.com/)
 * [Получить токен EthScan](https://etherscan.io/)
 * [Получить токен Taapi](https://taapi.io/)
