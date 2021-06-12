@@ -148,7 +148,8 @@ async def server_answer(message: types.Message):
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
         close = types.KeyboardButton(text="❌ Закрыть")
         statistic = types.KeyboardButton(text="📊 Статистика")
-        keyboard.add(close, statistic)
+        uptime = types.KeyboardButton(text="⏲ Аптайм")
+        keyboard.add(close, statistic, uptime)
         await message.answer('Вы вошли в админ панель', reply_markup=keyboard)
         @dp.message_handler(content_types='text')
         async def choise_answer(message: types.Message):
