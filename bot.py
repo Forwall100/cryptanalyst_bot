@@ -221,7 +221,6 @@ async def advsignal_answer(message: types.Message):
 @dp.message_handler(commands="event", content_types='text')
 async def advsignal_answer(message: types.Message):
     ticker = message.text.replace('/event ', '').split()[0]
-    print(ticker)
     try:
         await message.answer('💣 Ближайшее событие:\n' + str(coindar(ticker)[0]['caption']) + '\n📅 Дата начала: ' + str(coindar(ticker)[0]['date_start']))
     except:
