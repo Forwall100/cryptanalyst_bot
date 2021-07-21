@@ -421,3 +421,24 @@ def sum_signals_adv(ticker, time='d'):
         res_neutral.append(i + ', ')
     
     return ''.join(res_bear) + '\n' + ''.join(res_bull) + '\n' + ''.join(res_neutral)
+
+def coindar(ticker):
+    url_id = f'https://coindar.org/api/v2/coins?access_token={coindar_token}'
+    session = Session()
+    try:
+        response = session.get(url_id)
+        data = json.loads(response.text)
+        for i in data:
+            if i['symbol'] == ticker:
+                id = i['id']
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        return e
+
+    url_events = f'https://coindar.org/api/v2/events?access_token={coindar_token}&page=1&page_size=1&filter_coins={id}&sort_by=date_start&order_by=1'
+    session = Session()
+    try:
+        response = session.get(url_events)
+        data = json.loads(response.text)
+        return data
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        return e

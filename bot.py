@@ -219,5 +219,11 @@ async def advsignal_answer(message: types.Message):
     await message.answer('Анализ по ' + ticker + '\n' + sum_signals_adv(ticker, time))
 
 
+@dp.message_handler(commands="event", content_types='text')
+async def advsignal_answer(message: types.Message):
+    ticker = message.text.replace('/event ', '').split()[0]
+    print(ticker)
+    await message.answer('💣 Ближайшее событие:\n' + str(coindar(ticker)[0]['caption']) + '\n📅 Дата начала: ' + str(coindar(ticker)[0]['date_start']))
+
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
