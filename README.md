@@ -33,6 +33,7 @@ https://t.me/demo_cryptanalyst_bot
 * [Получить токен screenshotmachine](https://www.screenshotmachine.com/)
 * [Получить токен EthScan](https://etherscan.io/)
 * [Получить токен Taapi](https://taapi.io/)
+* [Получить токен Coindar](https://coindar.org/ru/api/tokens)
 
 5. Запустите бота
     ```bash
@@ -70,12 +71,14 @@ https://t.me/demo_cryptanalyst_bot
 
 ```/admin``` - Вход в админ панель
 
+```/event [тикер монеты]``` - последний ивент с coindar
+
 ### TODO
 - [X] Переписать функции, использующие API coinmarketcap на API Coingecko, т.к. он не требует ключа 
 - [X] Написать рекомендательную систему на основе индикаторов с сайта [taapi.io](https://taapi.io/)
 - [ ] Добавить информацию о действииях grayscale
 - [X] Добавить разные списки отслеживания для каждого пользователя
-- [ ] Добавить ивенты с coindar
+- [X] Добавить ивенты с coindar
 - [X] Добавить цены на gas с сайта [gasnow.org](https://www.gasnow.org/)
 - [X] Добавить подсказки команд
 
