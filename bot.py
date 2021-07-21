@@ -34,6 +34,7 @@ async def set_bot_commands(dp):
         types.BotCommand(command="advsignal", description="[тикер монеты] [h/d/w/m] - продвинутые результаты анализа рынка"),
         types.BotCommand(command="profile", description="Список отслеживаемых монет и другая информация о профиле"),
         types.BotCommand(command="event", description="[тикер монеты] - Последний ивент с Coindar"),
+        
     ]
     await dp.bot.set_my_commands(commands)
 
