@@ -222,7 +222,10 @@ async def advsignal_answer(message: types.Message):
 async def advsignal_answer(message: types.Message):
     ticker = message.text.replace('/event ', '').split()[0]
     print(ticker)
-    await message.answer('💣 Ближайшее событие:\n' + str(coindar(ticker)[0]['caption']) + '\n📅 Дата начала: ' + str(coindar(ticker)[0]['date_start']))
+    try:
+        await message.answer('💣 Ближайшее событие:\n' + str(coindar(ticker)[0]['caption']) + '\n📅 Дата начала: ' + str(coindar(ticker)[0]['date_start']))
+    except:
+        await message.answer('Монета с таким тикером не найдена')
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
