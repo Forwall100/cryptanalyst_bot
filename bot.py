@@ -1,8 +1,5 @@
 # -*- coding: utf8 -*-
 
-#TODO
-# - [] Coindar
-
 # Импорт функций
 from utils import *
 
