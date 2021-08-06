@@ -127,6 +127,8 @@ def fear_and_greed_index():
             return 'страх 😱'
         elif x == 'Greed':
             return 'жадность 🤑'
+        elif x == 'Neutral':
+            return 'нейтрально 😐'
     url = 'https://alternative.me/crypto/fear-and-greed-index/'
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
@@ -140,8 +142,8 @@ def fear_and_greed_index():
             i.remove('Extreme')
         except:
             pass
-    return [('Сегодня ' + translate(m[0][-2]) + ' ' + m[0][-1]), ('Вчера ' + translate(m[1][-2]) + ' ' +  m[1][-1]), ('Прошлая неделя ' + translate(m[-2][2]) + ' ' +  m[2][-1])]
 
+    return [('Сегодня ' + translate(m[0][-2]) + ' ' + m[0][-1]), ('Вчера ' + translate(m[1][-2]) + ' ' +  m[1][-1]), ('Прошлая неделя ' + translate(m[-2][2]) + ' ' +  m[2][-1])]
 
 def btc_explorer(address):
     url = 'https://bitcoinwhoswho.com/address/' + address
@@ -289,7 +291,6 @@ def ishimoku(ticker, time='d'):
     except:
         pass
 
-
 def sum_signals(ticker, time='d'):
     m = []
     try:
@@ -352,28 +353,29 @@ def sum_signals(ticker, time='d'):
 
 def sum_signals_adv(ticker, time='d'):
     m = []
+    m.append((bbands(ticker, time), 'Bollinger Bands'))
     try:
         m.append((trand(ticker, time), 'EMA'))
     except:
         pass
     try:
-        m.append((rsi(ticker), 'RSI'))
+        m.append((rsi(ticker, time), 'RSI'))
     except:
         pass
     try:
-        m.append((bbands(ticker), 'Bollinger Bands'))
+        m.append((bbands(ticker, time), 'Bollinger Bands'))
     except:
         pass
     try:
-        m.append((macd(ticker), 'MACD'))
+        m.append((macd(ticker, time), 'MACD'))
     except:
         pass
     try:
-        m.append((stochrs(ticker), 'Stochastic Relative Strength'))
+        m.append((stochrs(ticker, time), 'Stochastic Relative Strength'))
     except:
         pass
     try:
-        m.append((ishimoku(ticker), 'Ichimoku Cloud'))
+        m.append((ishimoku(ticker, time), 'Ichimoku Cloud'))
     except:
         pass
 
@@ -407,7 +409,7 @@ def sum_signals_adv(ticker, time='d'):
             bull.append(i[1])
         elif i[0] == 'neutral':
             neutral.append(i[1])
-
+    print(m)
     res_bear.append('🐻 Медвежьи: ' + str(len(bear)) + ' - ')
     for i in bear:
         res_bear.append(i + ', ')
@@ -422,23 +424,4 @@ def sum_signals_adv(ticker, time='d'):
     
     return ''.join(res_bear) + '\n' + ''.join(res_bull) + '\n' + ''.join(res_neutral)
 
-def coindar(ticker):
-    url_id = f'https://coindar.org/api/v2/coins?access_token={coindar_token}'
-    session = Session()
-    try:
-        response = session.get(url_id)
-        data = json.loads(response.text)
-        for i in data:
-            if i['symbol'] == ticker:
-                id = i['id']
-    except (ConnectionError, Timeout, TooManyRedirects) as e:
-        return e
-
-    url_events = f'https://coindar.org/api/v2/events?access_token={coindar_token}&page=1&page_size=1&filter_coins={id}&sort_by=date_start&order_by=1'
-    session = Session()
-    try:
-        response = session.get(url_events)
-        data = json.loads(response.text)
-        return data
-    except (ConnectionError, Timeout, TooManyRedirects) as e:
-        return e
+print(sum_signals_adv('BTC', 'd'))
