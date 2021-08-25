@@ -1,5 +1,5 @@
 botToken = ''
-admin_id = 
+admin_id = ''
 screenshotapiToken = ''
 ethscan = ''
 taapiTocken = ''
