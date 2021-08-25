@@ -1,6 +1,6 @@
-botToken = ''
-admin_id = 
-screenshotapiToken = ''
-ethscan = ''
-taapiTocken = ''
-coindar_token = ''
+botToken = '571255291:AAFsQNQcWbKO1BPVCV0PqzqXrfg9o3ycbcc'
+admin_id = 264363056
+screenshotapiToken = 'cb302f'
+ethscan = '7G6A1MZNVV9T9359EJUTHDHFJN97HQGWEH'
+taapiTocken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlemVyaTU0NkBnbWFpbC5jb20iLCJpYXQiOjE2MjE5NTQ5NzIsImV4cCI6NzkyOTE1NDk3Mn0.Yj2ciaS-zViNWo7wsiQhbTzPT1maGaDkqW8Hr_u41gY'
+coindar_token = '48565:wTbAOtryFfqULaPvxSL'
